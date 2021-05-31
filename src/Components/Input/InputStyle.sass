@@ -1,0 +1,28 @@
+@import "../../index.sass"
+.inputItem
+    &__name
+        display: block
+        margin-bottom: 5px
+        color: $text
+    &__input
+        width: 100%
+        resize: none
+        outline: none
+        box-shadow: 0px 0px 20px 7px rgba(34, 60, 80, 0.1)
+        padding: 8px
+        font-size: 16px
+        border: none
+        border-radius: 10px
+        transition: .2s
+        &:hover,&:focus
+            box-shadow: 0px 0px 20px 7px rgba(34, 60, 80, 0.2)
+    &__input--error
+      box-shadow: 0px 0px 20px 7px rgba($error, 0.2)
+    &__inputArea
+        height: 200px
+    &__inputError 
+        display: flex
+        justify-content: flex-end
+        margin-top: 2px
+        font-size: 14px
+        color: $error

@@ -1,0 +1,59 @@
+@import "../../index.sass"
+.tasks
+    padding: 50px
+    &__title
+        text-align: center
+        color: $text
+    &__itemWrapper
+        display: flex
+        justify-content: space-between
+        margin-top: 25px
+    &__item
+        flex-basis: 32%
+    &__form
+        max-width: 500px
+        margin: 50px auto auto auto
+    &__adminBtn
+        display: block
+        margin: auto
+        font-size: 14px
+        text-align: center
+        padding: 10px 20px
+        background-color: $primarySecond
+        border-radius: 5px
+        margin: 50px auto auto 
+        box-shadow: 0px 0px 20px 7px rgba(34, 60, 80, 0.1)
+        &:hover
+            box-shadow: 0px 0px 20px 7px rgba(34, 60, 80, 0.2)
+
+.form
+    &__wrapper
+        display: flex
+        justify-content: space-between
+    &__inputInner
+        margin-bottom: 10px
+        flex-basis: 48%
+       
+    &__button
+        display: block
+        padding: 10px 20px
+        font-size: 16px
+        color: $text
+        transition: .2s
+        background-color: #fff
+        margin: 0 0 0 auto
+        border-radius: 5px
+        box-shadow: 0px 0px 20px 7px rgba(34, 60, 80, 0.1)
+        &:hover
+            box-shadow: 0px 0px 20px 7px rgba(34, 60, 80, 0.2)
+        &:disabled
+            opacity: 0.5
+@media ( max-width: 900px )
+    .tasks
+        &__itemWrapper
+            flex-wrap: wrap
+        &__item
+            flex-basis: 100%
+            margin-bottom: 15px
+            &:last-child
+                margin-bottom: 0
