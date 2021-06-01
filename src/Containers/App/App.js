@@ -6,7 +6,7 @@ import "./AppStyle.sass";
 import Input from "../../Components/Input/Input";
 import AdminModal from "../../Components/AdminModel/AdminModal";
 import { useDispatch, useSelector } from "react-redux";
-import { AppAddTask, AppGetTasks } from "../../Redux/AppReducer";
+import { AppAddTask, AppGetTasks, AppSetToken } from "../../Redux/AppReducer";
 import arrow from "../../images/arrowDown.svg";
 
 const App = () => {
@@ -14,6 +14,7 @@ const App = () => {
     const tasks = useSelector((state) => state.AppReducer.tasks);
     const taskError = useSelector((state) => state.AppReducer.errorsAddForm);
     const isFetching = useSelector((state) => state.AppReducer.isFetching);
+    const token = useSelector((state) => state.AppReducer.token);
     const allTaskCount = useSelector((state) => state.AppReducer.allTaskCount);
     const [isOpen, setIsOpen] = useState(false);
     const [pageNum, setPageNum] = useState(1);
@@ -44,7 +45,7 @@ const App = () => {
 
     const addTask = ({ email, name, description }) => {
         dispatch(AppAddTask(name, email, description));
-        dispatch(AppGetTasks(sort.field, sort.direction, pageNum));
+        // dispatch(AppGetTasks(sort.field, sort.direction, pageNum));
     };
 
     if (allTaskCount) {
@@ -60,6 +61,11 @@ const App = () => {
     useEffect(() => {
         dispatch(AppGetTasks(sort.field, sort.direction, pageNum));
     }, [sort, pageNum]);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) dispatch(AppSetToken(token));
+    }, []);
 
     return (
         <>
@@ -98,7 +104,7 @@ const App = () => {
                         )}
 
                         {!isFetching && tasks && tasks.length > 0 ? (
-                            tasks.map((el) => <Task key={el.id} name={el.username} email={el.email} status={el.status} description={el.text} />)
+                            tasks.map((el) => <Task key={el.id} id={el.id} name={el.username} email={el.email} status={el.status} description={el.text} />)
                         ) : isFetching ? (
                             <span className="tasks__empty">Загрузка...</span>
                         ) : (
@@ -127,11 +133,13 @@ const App = () => {
                             </Form>
                         )}
                     </Formik>
-                    <button className="tasks__adminBtn" onClick={openModal}>
-                        Вы админ?
-                    </button>
+                    {!token && (
+                        <button className="tasks__adminBtn" onClick={openModal}>
+                            Вы админ?
+                        </button>
+                    )}
                 </div>
-                {isOpen && <AdminModal open={setIsOpen} />}
+                {!token && isOpen && <AdminModal open={setIsOpen} />}
             </section>
         </>
     );

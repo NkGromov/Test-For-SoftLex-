@@ -18,13 +18,38 @@ export const API = {
             .then((res) => res.data);
     },
     createTask(username, email, text) {
-        console.log(username, email, text);
         let form = new FormData();
         form.append("username", username);
         form.append("email", email);
         form.append("text", text);
         return instance
             .post("create?developer=NikitaGromov", form, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((res) => res.data);
+    },
+
+    login(username, password) {
+        let form = new FormData();
+        form.append("username", username);
+        form.append("password", password);
+        return instance
+            .post("login?developer=NikitaGromov", form, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((res) => res.data);
+    },
+    change(text, status, token, id) {
+        let form = new FormData();
+        form.append("token", token);
+        form.append("text", text);
+        form.append("status", status);
+        return instance
+            .post(`edit/${id}?developer=NikitaGromov`, form, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
